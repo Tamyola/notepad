@@ -1,0 +1,505 @@
+ <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <title>Dashboard Page</title>
+ </head>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+  body {
+  background: #6abadeba;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  }
+  .headtext {
+  text-align: center;
+  color: #277582;
+  padding-top: 72px;
+  font-size: 35px;
+  font-weight: 700;
+  }
+  ::selection {
+  color: #fff;
+  background:#6abadeba;
+  }
+  .wrapper {
+  margin: 50px;
+  display: grid;
+  gap: 25px;
+  padding-left: 428px;
+  padding-right: 43px;
+  }
+  .wrapper li {
+  height: 50px;
+  list-style: none;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  }
+  .add-box, .icon, .bottom-content, 
+   header, .settings .menu li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  }
+  .add-box {
+  cursor: pointer;
+  justify-content: center;
+
+  }
+  .add-box .icon {
+  opacity: 0.7;
+  height: 78px;
+  width: 78px;
+  color: #696969;
+  font-size: 40px;
+  border-radius: 50%;
+  justify-content: center;
+  }
+  .add-box p {
+  color: black;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 20px;
+  }
+  .addicon {
+    opacity: 0.8;
+  }
+  .note {
+  display: flex;
+  justify-content: space-between;
+  }
+  .note .details {
+  max-height: 165px;
+  overflow-y: hidden;
+  }
+  .note .details::-webkit-scrollbar,
+   textarea::-webkit-scrollbar {
+  width: 0;
+  }
+  .note .details:hover::-webkit-scrollbar,
+  .popup textarea:hover::-webkit-scrollbar {
+  width: 5px;
+  }
+  .note .details:hover::-webkit-scrollbar-track,
+  .popup textarea:hover::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 25px;
+  }
+  .note .details:hover::-webkit-scrollbar-thumb,
+  .popup textarea:hover::-webkit-scrollbar-thumb {
+  background: #e6e6e6;
+  border-radius: 25px;
+  }
+  .note p {
+  font-size: 22px;
+  font-weight: 500;
+  padding-top:8px ;
+  padding-left: 34px;
+  opacity: 0.9;
+  }
+  .note span {
+  display: block;
+  color: #575757;
+  font-size: 16px;
+  margin-top: 5px;
+  }
+  .note .bottom-content {
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+  }
+  .bottom-content span {
+  color: #6D6D6D;
+  font-size: 14px;
+  }
+  .bottom-content .settings {
+  position: relative;
+  }
+  .bottom-content .settings i {
+  color: #6D6D6D;
+  cursor: pointer;
+  font-size: 15px;
+  }
+  .uil-ellipsis-h:before {
+  content: '\e99c';
+  padding-bottom: 43px;
+  padding-right: 8px;
+  }
+  .settings .menu {
+  z-index: 1;
+  bottom: 0;
+  right: -5px;
+  padding: 5px 0;
+  background: #fff;
+  position: absolute;
+  border-radius: 4px;
+  transform: scale(0);
+  transform-origin: bottom right;
+  box-shadow: 0 0 6px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease;
+  }
+  .settings.show .menu {
+  transform: scale(1);
+  }
+  .settings .menu li {
+  height: 25px;
+  font-size: 16px;
+  margin-bottom: 2px;
+  padding: 17px 15px;
+  cursor: pointer;
+  box-shadow: none;
+  border-radius: 0;
+  justify-content: flex-start;
+  }
+  .menu li:last-child {
+  margin-bottom: 0;
+  }
+  .menu li:hover {
+  background: #f5f5f5;
+  }
+  .menu li i {
+  padding-right: 8px;
+  }
+  .popup-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,0.4);
+  }
+  .popup-box .popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  width: 100%;
+  max-width: 400px;
+  justify-content: center;
+  transform: translate(-50%, -50%) scale(0.95);
+  }
+  .popup-box, .popup {
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s ease;
+  }
+  .popup-box.show, .popup-box.show .popup {
+  opacity: 1;
+  pointer-events: auto;
+  }
+  .popup-box.show .popup {
+  transform: translate(-50%, -50%) scale(1);
+  }
+  .popup .content {
+  border-radius: 5px;
+  background: #fff;
+  width: calc(100% - 15px);
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  }
+  .content header {
+  padding: 15px 25px;
+  border-bottom: 1px solid #ccc;
+  }
+  .content header p {
+  font-size: 20px;
+  font-weight: 500;
+  }
+  .content header i {
+  color: #8b8989;
+  cursor: pointer;
+  font-size: 23px;
+  }
+  .content form {
+  margin: 15px 25px 35px;
+  }
+  .content form .row{
+  margin-bottom: 20px;
+  }
+  form .row label {
+  font-size: large;
+  display: block;
+  margin-bottom: 6px;
+  }
+  form :where(input, textarea) {
+  height: 39px;
+  width: 100%;
+  outline: none;
+  font-size: 17px;
+  padding: 0 15px;
+  border: 1px solid #999;
+  background-color: #23463f;
+  border-radius: 7px;
+  margin-top: 10px;
+  color: #08ffd1;
+  }
+  input[type=textt] {
+  height: 39px;
+  width: 23%;
+  outline: none;
+  font-size: 17px;
+  padding: 0 15px;
+  border: 1px solid white;
+  justify-content: center;
+  background-color: white;
+  border-radius: 7px;
+  margin-top: 10px;
+  color: #08ffd1;
+  }
+  textarea {
+  height: 39px;
+  width: 23%;
+  outline: none;
+  font-size: 17px;
+  padding: 0 15px;
+  border: 1px solid white;
+  background-color: white;
+  border-radius: 7px;
+  margin-top: 10px;
+  color: #08ffd1;
+  }
+  form :where(input, textarea):focus {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.11);
+  }
+  form .row textarea{
+  height: 150px;
+  resize: none;
+  padding: 8px 15px;
+  }
+  form button {
+  width: 32%;
+  height: 50px;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: 17px;
+  border-radius: 4px;
+  background: #6A93F8;
+  }
+  .search {
+  width: 90%; 
+  }
+  .searchTerm {
+  width: 100%;
+  border: 3px solid #00B4CC;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+  }
+  .searchTerm:focus {
+  color: #00B4CC;
+  }
+  .searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #00B4CC;
+  background: #00B4CC;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+  }
+  .wrap {
+  width: 30%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  }
+  .logoutLblPos {
+  position:fixed;
+  right:19px;
+  top:13px;
+  }
+  .searchingbar {
+  padding-left: 331px;
+  padding-right: 55px;
+  }  
+  .input-box i {
+  right: 4px;
+  top:5px;
+  }
+  .popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  }
+  .notebox{
+  border: 5px solid white;
+  height: 3rem;
+  background-color: white;
+  border-radius: 4px;
+  }
+  .Titletext {
+  font-weight: bold;
+  padding-left: 1rem;
+  margin-bottom: 15px; 
+  }
+  .Contenttext {
+  margin-bottom:-10px ;
+  padding-left: 5rem;
+  }
+  .editicon {
+    margin-right: 9px;
+    color: black;
+  }
+  .trashcan {
+    color: black;
+  }
+  .hiddenbox {
+    display: none;
+  }
+</style>
+ 
+<h2 class="headtext">WELCOME {{ user.username}} </h2><br>
+<div style="float:right">
+  <form align="right" name="form1" method="post" action="dash" id="dash">
+    <label class="logoutLblPos">
+      <input name="submit2" type="submit" id="submit2" value="Log out">
+    </label>
+  </form>
+</div>
+<div class="justify-content-center pt-3 row col-10 searchingbar">
+  <div class="px-5 col-10 input-box position-relative">
+    <input type="text" class="form-control fs-5" placeholder="Search for a note . . .">
+    <i class="pe-3 pe-5 fa-2x fa fa-search position-absolute"></i>                    
+  </div>
+</div> 
+
+<div class="wrapper col-8"> 
+  <button type="button" class="add-box btn btn-light" data-toggle="modal" data-target="#exampleModal"><i class="addicon pe-4 fa-2x uil uil-plus">
+    </i><p>New Note</p>
+  </button>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create note</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addnote" method="post" action="create">
+          <div class="form-group">
+            <label for="title" class="col-form-label">Title</label>
+            <input type="text" class="form-control" id="recipient-name" name="title">
+          </div>
+          <div class="form-group">
+            <label for="content" class="col-form-label">Content</label>
+            <textarea class="form-control" id="message-text" name="content"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add note</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ul>
+  {{#each notes}}
+  <div style="width:50%;margin:10px auto;display:flex;flex-direction:row;justify-content:center;flex-wrap:wrap;">
+    <div class="notebox" style="width:70%;display:flex;align-items:center;">
+      <h5 class="Titletext">{{this.title}}</h5>
+      <p class="Contenttext">{{this.content}}</p>
+    </div>
+
+    <div style="position:absolute;width:20%;display:flex;align-items:center; justify-content:center">
+      <button type="button" class=" btn" data-toggle="modal" data-target="#editingnote">
+        <a style="margin:auto;margin-top:1rem;margin-left:20rem;position:relative;"><i class="editicon fa fa-edit"></i></a> 
+      </button>  
+      <div class="modal fade" id="editingnote" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Update note</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="addnote" method="post" action="update">
+                <div class="form-group">
+                  <label for="title" class="col-form-label">Title</label>
+                  <input type="text" class="form-control" id="recipient-name" name="title" value="{{this.title}}">
+                </div>
+                <div class="form-group">
+                  <label for="content" class="col-form-label">Content</label>
+                  <input class="form-control" id="message-text" name="content" value="{{this.content}}"></input>
+                </div>
+                 <div class="hiddenbox form-group">
+                  <label for="id" class="col-form-label">id</label>
+                  <input class="form-control" id="message-text" name="id" value="{{this._id}}"></input>
+                </div>
+                <div class="modal-footer">
+                  {{!-- <button type="submit" class="btn btn-primary" data-dismiss="modal">Edit note</button> --}}
+                  <button type="submit" class="btn btn-secondary">Edit note</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn" data-toggle="modal" data-target="#{{this._id}}" style="outline:none;">
+        <a><i class="trashcan fa fa-trash" aria-hidden="true"></i></a>
+      </button>
+      <div class="modal fade" id="{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Confirmation box</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="deletenote" method="POST" action="delete">
+                <p>Are you sure you want to delete this?</p>
+                <div class="hiddenbox form-group">
+                  <label for="id" class="col-form-label">id</label>
+                  <input class="form-control" id="message-text" name="id" value="{{this._id}}"></input>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">NO</button>
+                  <button type="submit" class="btn btn-secondary">YES</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</ul>
+
+{{!-- <ul>
+  {{#each notes}}
+    <li>{{this.title}} - {{this.content}} 
+      <a href="/edit/{{@index}}">Edit</a>
+      <a href="/delete/{{@index}}">Delete</a>
+    </li>
+  {{/each}}
+</ul> --}}
+
+
+

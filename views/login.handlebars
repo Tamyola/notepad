@@ -1,0 +1,85 @@
+<head>
+  <title>Login Page</title>
+</head>
+<style>
+  body {
+  margin: 0;
+  padding: 0;
+  background-color:#6abadeba;
+  font-family: Arial, Helvetica, sans-serif;
+  }
+  .login {
+  width: 528px;
+  margin: auto;
+  margin: 20 0 0 450px;
+  padding: 80px;
+  background: #23463f;
+  border-radius: 15px ;
+  }
+  .loginhead {
+  text-align: center;
+  color: #277582;
+  padding-top: 17px;
+  font-weight: 600;
+  margin-bottom: -10px;
+  }
+  label {
+  color: #08ffd1;
+  font-size: 17px;
+  }
+  #Uname {
+  width: 300px;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  padding-left: 12px;
+  }
+  #Pass {
+  width: 300px;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  padding-left: 12px;
+
+  }
+  .submitbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 82%;
+  }
+  .submitbtn:hover {
+  opacity: 0.5;
+  }
+  .reg {
+  float: right;
+  background-color: white;
+  }
+  .signupprompt {
+  color: #08ffd1;
+  }
+</style>
+
+<h1 class="loginhead">Login Page</h1><br>
+<div class="login">
+  <form id="login" method="post" action="login">
+    <label for="email"><b>Email</b></label>
+    <br>
+    <input type="text" id="Uname" placeholder="Enter Email" name="email">
+    <br><br>
+    <label for="psw"><b>Password</b></label>
+    <input type="Password" id="Pass" placeholder="Enter Password">
+    <br><br>
+    <a href="/submit"><button type="button" class="submitbtn">Submit</button></a>
+    <br><br>
+    <label>
+      <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+    <br><br>
+    <p class="signupprompt">Don't have an account yet?</p>
+    <a href="/register" class="reg">Sign Up</a>
+  </form>
+</div>
